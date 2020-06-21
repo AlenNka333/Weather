@@ -28,7 +28,7 @@ class RecyclerAdapter(private val list: ArrayList<Details>): RecyclerView.Adapte
         val details = list[position]
         holder.title.text = details.dt_txt
         holder.subtitle.text = details.weather[0].description
-        holder.temperature.text = String.format("%sC°",details.main.feels_like)
+        holder.temperature.text = String.format("%s°C",details.main.feels_like)
 
         val iconUrl = "https://openweathermap.org/img/w/${details.weather[0].icon}.png"
         Picasso.get()
@@ -36,7 +36,7 @@ class RecyclerAdapter(private val list: ArrayList<Details>): RecyclerView.Adapte
             .into(holder.imageView)
 
         holder.itemView.setOnClickListener {
-            
+
         }
 
     }

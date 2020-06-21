@@ -1,18 +1,19 @@
 package com.hfad.weather
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import android.location.Address
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import com.hfad.weather.JsonParse.Details
 import com.hfad.weather.JsonParse.General
-import com.hfad.weather.JsonParse.Weather
 import com.hfad.weather.adapter.RecyclerAdapter
 import com.hfad.weather.utils.NetworkUtils
 import okhttp3.*
@@ -36,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         list = ArrayList()
         recyclerView.layoutManager = LinearLayoutManager(this)
-
 
 
         city.setOnEditorActionListener { v, actionId, event ->
@@ -63,14 +63,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun fetchJson(name: String){
-
-        val url = NetworkUtils().builUrl(name).toString()
+        val geocoder: Geocoder = Geocoder(this)
+        val address: List<Address> = geocoder.getFromLocationName(name,1)
+        if (address.isEmpty()) {
+            Toast.makeText(this, "Check city name", Toast.LENGTH_SHORT)
+        }
+        val location = address[0]
+        val url = NetworkUtils().builUrl(location.getLatitude().toString(),location.getLongitude().toString()).toString()
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
         client.newCall(request).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
                 println("Fail")
+                Toast.makeText(applicationContext, "Check city name", Toast.LENGTH_SHORT)
             }
 
             override fun onResponse(call: Call, response: Response) {
