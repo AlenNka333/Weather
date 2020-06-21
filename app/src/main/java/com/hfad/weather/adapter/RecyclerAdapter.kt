@@ -35,6 +35,10 @@ class RecyclerAdapter(private val list: ArrayList<Details>): RecyclerView.Adapte
             .load(iconUrl)
             .into(holder.imageView)
 
+        holder.itemView.setOnClickListener {
+            
+        }
+
     }
 
     inner class WeatherHolder(v: View): RecyclerView.ViewHolder(v){
