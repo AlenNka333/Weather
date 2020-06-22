@@ -52,8 +52,7 @@ class DetailActivity : AppCompatActivity() {
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
                 println("Fail")
-                Toast.makeText(applicationContext, "Check city name", Toast.LENGTH_SHORT).show()
-            }
+                }
 
             override fun onResponse(call: okhttp3.Call, response: Response) {
 

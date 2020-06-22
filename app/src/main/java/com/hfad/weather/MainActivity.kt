@@ -88,14 +88,24 @@ class MainActivity : AppCompatActivity() {
 
     fun fetchJson(name: String){
 
-        val geocoder: Geocoder = Geocoder(this)
-        val address: List<Address> = geocoder.getFromLocationName(name,1)
-        if (address.isEmpty()) {
-            Toast.makeText(this, "Check city name", Toast.LENGTH_SHORT).show()
+        try {
+            val geocoder = Geocoder(this)
+            val address: List<Address> = geocoder.getFromLocationName(name, 1)
+            if (address.isEmpty()) {
+                Toast.makeText(this, "Check city name", Toast.LENGTH_SHORT).show()
+            }
+            val location = address[0]
+            lat = location.getLatitude().toString()
+            lon = location.getLongitude().toString()
+        }catch (e: IOException){
+            when{
+                e.message == "grpc failed" -> {
+                    Toast.makeText(applicationContext, "check internet connection or city name", Toast.LENGTH_SHORT)
+                    .show()}
+                else -> throw e
+            }
         }
-        val location = address[0]
-        lat = location.getLatitude().toString()
-        lon = location.getLongitude().toString()
+
 
         val url = NetworkUtils().builUrlCurrent(lat, lon).toString()
         val request = Request.Builder().url(url).build()
