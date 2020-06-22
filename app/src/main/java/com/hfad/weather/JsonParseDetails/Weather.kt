@@ -1,4 +1,4 @@
-package com.hfad.weather.JsonParse
+package com.hfad.weather.JsonParseDetails
 
 import com.google.gson.annotations.SerializedName
 

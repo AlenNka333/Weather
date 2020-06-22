@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.hfad.weather.JsonParse.Details
-import com.hfad.weather.JsonParse.General
+import com.hfad.weather.JsonParseDetails.Details
 import com.hfad.weather.R
-import com.hfad.weather.JsonParse.Weather
 import com.squareup.picasso.Picasso
 
 class RecyclerAdapter(private val list: ArrayList<Details>): RecyclerView.Adapter<RecyclerAdapter.WeatherHolder>() {

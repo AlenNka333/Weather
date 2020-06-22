@@ -6,7 +6,9 @@ import java.net.URL
 
 class NetworkUtils {
 
-    private val url = "https://api.openweathermap.org/data/2.5/forecast"
+    private val urlDetails = "https://api.openweathermap.org/data/2.5/forecast"
+    private val urlCurrent = "https://api.openweathermap.org/data/2.5/weather"
+
 
     private val PARAM_LAT = "lat"
     private val PARAM_LON = "lon"
@@ -18,12 +20,27 @@ class NetworkUtils {
     private val API_KEY = "bf5296e547ae9dbee06ec80cda8f6ded"
     private val UNITS = "metric"
 
-    fun builUrl(lat: String, lon: String): URL {
+    fun builUrlDetails(lat: String, lon: String): URL {
 
         LAT = lat
         LON = lon
 
-        val uri = Uri.parse(url).buildUpon()
+        val uri = Uri.parse(urlDetails).buildUpon()
+            .appendQueryParameter(PARAM_LAT, LAT)
+            .appendQueryParameter(PARAM_LON, LON)
+            .appendQueryParameter(PARAM_UNITS, UNITS)
+            .appendQueryParameter(API_PARAM, API_KEY)
+            .build()
+
+        return URL(uri.toString())
+    }
+
+    fun builUrlCurrent(lat: String, lon: String): URL {
+
+        LAT = lat
+        LON = lon
+
+        val uri = Uri.parse(urlCurrent).buildUpon()
             .appendQueryParameter(PARAM_LAT, LAT)
             .appendQueryParameter(PARAM_LON, LON)
             .appendQueryParameter(PARAM_UNITS, UNITS)
