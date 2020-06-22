@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         val geocoder: Geocoder = Geocoder(this)
         val address: List<Address> = geocoder.getFromLocationName(name,1)
         if (address.isEmpty()) {
-            Toast.makeText(this, "Check city name", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Check city name", Toast.LENGTH_SHORT).show()
         }
         val location = address[0]
         lat = location.getLatitude().toString()
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         client.newCall(request).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
                 println("Fail")
-                Toast.makeText(applicationContext, "Check city name", Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext, "Check city name", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -143,10 +143,12 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickMoreDetails(view: View) {
         val intent = Intent(this, DetailActivity::class.java)
-        if(!lat.isEmpty() && !lon.isEmpty())
-        intent.putExtra("lat", lat)
-        intent.putExtra("lon", lon)
-        startActivity(intent)
+        if(!lat.isEmpty() && !lon.isEmpty()) {
+            intent.putExtra("lat", lat)
+            intent.putExtra("lon", lon)
+            startActivity(intent)
+        }
+        else Toast.makeText(applicationContext, "check city name", Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
