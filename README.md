@@ -6,3 +6,4 @@ Used:
  - picasso
  - recyclerView + viewHolder
  - Gson
+ - Geocoder
